@@ -8,9 +8,12 @@ WiFiServer server(80);
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 void setup(){
-  Serial.println();
-  Serial.println("SSID");
-  Serial.println(ssid);
+  Serial.begin(115200);
+  lcd.init();
+  lcd.backlight();
+  lcd.setCursor(0, 1);
+  lcd.println("SSID");
+  lcd.println(ssid);
 
   //Initialisieren der Wifi Verbindung.
   WiFi.begin(ssid, password); 
@@ -37,6 +40,6 @@ void setup(){
 
 void loop(){
    if(WiFi.status() != WL_CONNECTED){
-      setupWiFi();
+      setup();
    }
 }
