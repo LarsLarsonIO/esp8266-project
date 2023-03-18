@@ -7,7 +7,7 @@ const char* password = "43167618394590382086";
 WiFiServer server(80);
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 
-void setupWiFi(){
+void setup(){
   Serial.println();
   Serial.println("SSID");
   Serial.println(ssid);
@@ -33,4 +33,10 @@ void setupWiFi(){
   Serial.println("IP-Adresse");
   //schreiben des Textes auf das Serial
   Serial.println(WiFi.localIP().toString());
+}
+
+void loop(){
+   if(WiFi.status() != WL_CONNECTED){
+      setupWiFi();
+   }
 }
