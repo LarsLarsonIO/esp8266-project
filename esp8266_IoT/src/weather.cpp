@@ -8,33 +8,34 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 DHTesp dht;
 
 int BUILDIN_LED = 2;
-
+float h = dht.getHumidity();
+float t = dht.getTemperature();
 const char* ssid = "*";
 const char* password = "43167618394590382086";
 
-void setup(){  
+void setup(){
   Serial.begin(115200);
-
-  dht.setup(14, DHTesp::DHT22);
-
+  
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
   lcd.print("ESP8266 WebServer");
 
-  pinMode(BUILDIN_LED, OUTPUT);
-}
-
-void setupWiFi(){
   WiFi.begin(ssid, password);
+
   while (WiFi.status() != WL_CONNECTED){
     delay(500);
-    Serial.println(".");
+    Serial.print(".");
   }
+
   Serial.println("Server gestartet");
   Serial.println("IP-Adresse");
   Serial.println(WiFi.localIP().toString());
   server.begin();
+
+  dht.setup(14, DHTesp::DHT22);
+  
+  pinMode(BUILDIN_LED, OUTPUT);
 }
 
 void writeResponse(WiFiClient client){
@@ -66,9 +67,7 @@ void writeResponse(WiFiClient client){
   client.println("</html>");
 }
 
-void loop(){
-  float h = dht.getHumidity();
-  float t = dht.getTemperature();
+void loop(){ 
 
   if (isnan(h) || isnan(t)){
     Serial.println("> Failed to read from DHT Sensor <");
@@ -89,7 +88,7 @@ void loop(){
   delay(1000);
 
   if(WiFi.status() != WL_CONNECTED){
-      setupWiFi();
+      setup();
    }
 
    WiFiClient client = server.accept();
