@@ -8,18 +8,17 @@ LiquidCrystal_I2C lcd(0x27, 20, 4);
 DHTesp dht;
 
 int BUILDIN_LED = 2;
-float h = dht.getHumidity();
-float t = dht.getTemperature();
+
 const char* ssid = "*";
 const char* password = "43167618394590382086";
 
 void setup(){  
   Serial.begin(115200);
-
+  
   String thisBoard= ARDUINO_BOARD;
   Serial.println(thisBoard);
 
-  dht.setup(14, DHTesp::DHT22);
+  dht.setup(12, DHTesp::DHT22);
 
   lcd.init();
   lcd.backlight();
@@ -42,6 +41,9 @@ void setupWiFi(){
 }
 
 void writeResponse(WiFiClient client){
+  float h = dht.getHumidity();
+  float t = dht.getTemperature();
+
   client.println("HTTP/1.1 200 OK");
   client.println("Content-Type: text/html");
   client.println("");
