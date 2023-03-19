@@ -67,7 +67,9 @@ void writeResponse(WiFiClient client){
   client.println("</html>");
 }
 
-void loop(){ 
+void loop(){
+  float h = dht.getHumidity();
+  float t = dht.getTemperature();
 
   if (isnan(h) || isnan(t)){
     Serial.println("> Failed to read from DHT Sensor <");
