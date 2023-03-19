@@ -15,26 +15,20 @@ void setup(){
   lcd.println("SSID");
   lcd.println(ssid);
 
-  //Initialisieren der Wifi Verbindung.
+ 
   WiFi.begin(ssid, password); 
 
   int index = 0;
-  //Warten bis die Verbindung aufgebaut wurde.
   while (WiFi.status() != WL_CONNECTED) { 
-    delay(500); //eine kleine Pause von 500ms
-    index = index +1; //incrementieren des Indexes
-    //setzen des Cursors auf die Spalte=<index> und Zeile=18
+    delay(500); 
+    index = index +1; 
     Serial.println(index,18);
-    //schreiben eines Striches an die gesetzte Stelle
     Serial.println("-");
   }
 
   Serial.println("Server gestartet");
-  //starten des Servers
-  server.begin(); // Starten des Servers.
-  //setzen des Cursors auf die Zeile=10; Spalte=0  
+  server.begin();
   Serial.println("IP-Adresse");
-  //schreiben des Textes auf das Serial
   Serial.println(WiFi.localIP().toString());
 }
 
@@ -42,4 +36,25 @@ void loop(){
    if(WiFi.status() != WL_CONNECTED){
       setup();
    }
+   WiFiClient client = server.available();
+   if (!client){
+    return;
+   }
+   Serial.println("Client verbunden");
+   while(!client.available()){
+    delay(1);
+   }
+   writeResponse(client);
+}
+
+void writeResponse(WiFiClient client){
+  client.println("HTTP/1.1 200 OK");
+  client.println("Content-Type: text/html");
+  client.println("");
+  client.println("<!DOCTYPE HTML>");
+  client.println("<html>");
+  client.println("<body>");
+  client.println("ESP8266");
+  client.println("</body>");
+  client.println("</html>");
 }
