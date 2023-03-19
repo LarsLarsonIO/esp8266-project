@@ -2,18 +2,18 @@
 #include <ESP8266WiFi.h>
 #include <LiquidCrystal_I2C.h>
 #include <DHTesp.h>
-#include <Adafruit_Sensor.h>
 
 WiFiServer server(80);
 LiquidCrystal_I2C lcd(0x27, 20, 4);
 DHTesp dht;
 
 int BUILDIN_LED = 2;
+float h = dht.getHumidity();
+float t = dht.getTemperature();
+const char* ssid = "*";
+const char* password = "43167618394590382086";
 
-const char* ssid = "";
-const char* password = "";
-
-void setup(){
+void setup(){  
   Serial.begin(115200);
 
   String thisBoard= ARDUINO_BOARD;
@@ -31,17 +31,14 @@ void setup(){
 
 void setupWiFi(){
   WiFi.begin(ssid, password);
-  int index = 0;
   while (WiFi.status() != WL_CONNECTED){
     delay(500);
-    index = index + 1;
-    Serial.println(index,18);
-    Serial.println("-");
+    Serial.println(".");
   }
   Serial.println("Server gestartet");
-  server.begin();
   Serial.println("IP-Adresse");
   Serial.println(WiFi.localIP().toString());
+  server.begin();
 }
 
 void writeResponse(WiFiClient client){
@@ -54,9 +51,6 @@ void writeResponse(WiFiClient client){
   client.println("<meta http-equiv='refresh' content='5; URL=http://"+WiFi.localIP().toString()+"'/>");
   client.println("</head>");
   client.println("<body>");
-
-  float h = dht.getHumidity();
-  float t = dht.getTemperature();
 
   if (isnan(h) || isnan(t)) {
     client.println("Fehler beim lesen der Sensorwerte!");
@@ -74,7 +68,6 @@ void writeResponse(WiFiClient client){
 }
 
 void loop(){
-
   float h = dht.getHumidity();
   float t = dht.getTemperature();
 
@@ -82,7 +75,6 @@ void loop(){
     Serial.println("> Failed to read from DHT Sensor <");
     return;
   }
-
   lcd.setCursor(0, 2);
   lcd.print("Hum: ");
   lcd.print(h);
@@ -115,5 +107,5 @@ void loop(){
    lcd.print("Status OK");
 
    writeResponse(client);
-   delay(1500);
+   delay(1000);
 }
