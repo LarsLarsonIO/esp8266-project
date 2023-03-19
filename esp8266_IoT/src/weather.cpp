@@ -14,11 +14,11 @@ const char* password = "43167618394590382086";
 
 void setup(){  
   Serial.begin(115200);
-  
+
   String thisBoard= ARDUINO_BOARD;
   Serial.println(thisBoard);
 
-  dht.setup(12, DHTesp::DHT22);
+  dht.setup(14, DHTesp::DHT22);
 
   lcd.init();
   lcd.backlight();
