@@ -10,8 +10,8 @@ DHTesp dht;
 
 int BUILDIN_LED = 2;
 
-const char* ssid = "*";
-const char* password = "43167618394590382086";
+const char* ssid = "";
+const char* password = "";
 
 void setup(){
   Serial.begin(115200);
