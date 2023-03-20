@@ -1,7 +1,22 @@
+/*
+  Komponenten:
+    D1 mini ESP8266 12F
+    LCD 2004 I2C Display
+  
+  Bibliotheken:
+    ESP8266WiFi
+    LiquidCrystal_I2C
+    DHTesp
+    time
+  
+  Zugang zum Projekt im Browser
+
+*/
 
 #include <ESP8266WiFi.h>
 #include <LiquidCrystal_I2C.h>
 #include <DHTesp.h>
+//#include <time.h>
 
 WiFiServer server(80);
 LiquidCrystal_I2C lcd(0x27, 20, 4);
@@ -28,7 +43,7 @@ void setup(){
     Serial.print(".");
   }
 
-  Serial.println("Server gestartet");
+  Serial.print("Server gestartet");
   Serial.println("IP-Adresse");
   Serial.println(WiFi.localIP().toString());
   server.begin();
@@ -55,6 +70,8 @@ void writeResponse(WiFiClient client){
   if (isnan(h) || isnan(t)) {
     client.println("Fehler beim lesen der Sensorwerte!");
   } else {
+    client.print("D1 mini ESP8266 12F");
+    client.print("");
     client.print("Temperatur: ");
     client.print(String(t,2));
     client.println(" &deg;C");
