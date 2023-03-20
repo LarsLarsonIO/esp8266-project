@@ -106,6 +106,6 @@ void loop(){
   lcd.setCursor(0,1);
   lcd.print("Status OK");
 
-   writeResponse(client);
-   delay(1000);
+  writeResponse(client);
+  delay(500);
 }
