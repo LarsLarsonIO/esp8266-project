@@ -1,5 +1,5 @@
-# ESP8266 WiFi Projekt
-# --------------------
+# D1 MINI ESP8266 12F WiFi Projekt
+# --------------------------------
  
 # Komponenten:
     D1 mini ESP8266 12F
