@@ -34,7 +34,7 @@ void setup(){
   lcd.init();
   lcd.backlight();
   lcd.setCursor(0, 0);
-  lcd.print("ESP8266 WebServer");
+  lcd.print("D1 ESP8266 12F");
 
   WiFi.begin(ssid, password);
 
@@ -121,7 +121,7 @@ void loop(){
 
   Serial.println("Client verbunden");
   lcd.setCursor(0,1);
-  lcd.print("Status OK");
+  lcd.print("@ Browser");
 
   writeResponse(client);
   delay(500);
