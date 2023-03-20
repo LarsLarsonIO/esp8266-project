@@ -10,8 +10,8 @@ DHTesp dht;
 int BUILDIN_LED = 2;
 float h = dht.getHumidity();
 float t = dht.getTemperature();
-const char* ssid = "*";
-const char* password = "43167618394590382086";
+const char* ssid = "";
+const char* password = "";
 
 void setup(){
   Serial.begin(115200);
@@ -90,21 +90,21 @@ void loop(){
   delay(1000);
 
   if(WiFi.status() != WL_CONNECTED){
-      setup();
-   }
+    setup();
+  }
 
-   WiFiClient client = server.accept();
-   if (!client){
+  WiFiClient client = server.accept();
+  if (!client){
     return;
-   }
+  }
 
-   while(!client.available()){
-    delay(1);
-   }
+  while(!client.available()){
+   delay(1);
+  }
 
-   Serial.println("Client verbunden");
-   lcd.setCursor(0,1);
-   lcd.print("Status OK");
+  Serial.println("Client verbunden");
+  lcd.setCursor(0,1);
+  lcd.print("Status OK");
 
    writeResponse(client);
    delay(1000);
