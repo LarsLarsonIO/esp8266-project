@@ -43,7 +43,7 @@ void setup(){
     Serial.print(".");
   }
 
-  Serial.print("Server gestartet");
+  Serial.println("Server gestartet");
   Serial.println("IP-Adresse");
   Serial.println(WiFi.localIP().toString());
   server.begin();
@@ -121,7 +121,7 @@ void loop(){
 
   Serial.println("Client verbunden");
   lcd.setCursor(0,1);
-  lcd.print("@ Browser");
+  lcd.print(WiFi.localIP().toString());
 
   writeResponse(client);
   delay(500);
