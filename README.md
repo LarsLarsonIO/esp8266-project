@@ -15,5 +15,4 @@
     
  Zugang zum Projekt im Browser
  
-# Anbindung:
-    
+ 
