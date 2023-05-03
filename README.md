@@ -14,6 +14,5 @@
     time
     
  Zugang zum Projekt im Browser
- 
- 
-![darstellung](https://user-images.githubusercontent.com/110563077/235994231-d5b27f66-ada8-4e3e-80b3-cf3c374a7355.png)
+
+ ![komponenten](https://user-images.githubusercontent.com/110563077/235995235-8cf132ac-7c68-4dcf-8722-54182de79a81.png)
